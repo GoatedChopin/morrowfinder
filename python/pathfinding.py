@@ -38,6 +38,10 @@ def load_data(path="adjacency.csv"):
                         origin = line[0]
                         guild_guide = line[1]
                         guild_guides.append((origin, guild_guide))
+                    case "Walking":
+                        origin, destination, distance, direction = [s.strip() for s in line]
+                        distance = round(float(distance))
+                        adjacencies.append((origin, destination, distance, direction))
     
     for guild_guide_1 in guild_guides:
         for guild_guide_2 in guild_guides:
@@ -93,5 +97,5 @@ def pretty_format_path(path):
 if __name__ == "__main__":
     data = load_data()
     origin_map = build_adjacency_map(data)
-    balmora_to_vos = bfs_path("Balmora", "Vos", origin_map)
+    balmora_to_vos = bfs_path("Vivec", "Hlaalu Waistworks", origin_map)
     print(pretty_format_path(balmora_to_vos))
