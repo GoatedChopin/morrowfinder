@@ -84,7 +84,25 @@ def bfs_path(origin, destination, adjacencies):
         path = bfs_step()
         if path is not None:
             return path
+
+
+def all_reachable_locations(origin, adjacency):
+    visited=set()
+    visited.add(origin)
+    queue = deque()
+    queue.appendleft(origin)
+    def bfs():
+        current = queue.pop()
+        for distance, destination, method in adjacency[current]:
+            if destination not in visited:
+                visited.add(destination)
+                queue.appendleft(destination)
     
+    while queue:
+        bfs()
+
+    return visited
+
 
 def pretty_format_path(path):
     out = "Start at {}\n".format(path[1][0])
@@ -97,5 +115,6 @@ def pretty_format_path(path):
 if __name__ == "__main__":
     data = load_data()
     origin_map = build_adjacency_map(data)
-    balmora_to_vos = bfs_path("Vivec", "Hlaalu Waistworks", origin_map)
+    balmora_to_vos = bfs_path("Balmora", "Anudnabia (sealed)", origin_map)
     print(pretty_format_path(balmora_to_vos))
+    # breakpoint()

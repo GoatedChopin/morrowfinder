@@ -77,9 +77,22 @@ def cardinal_direction(origin, destination):
 if __name__ == "__main__":
 
     locations = read_locations()
+
+    vivec_cantons = set()
+    for location in locations:
+        if "Vivec" in get_name(location):
+            vivec_cantons.add("{}, {}, {}, {}\n".format("Vivec", get_name(location).replace(",", ":"), 4, cardinal_direction((33428, -89213), get_coord(location))))
+            vivec_cantons.add("{}, {}, {}, {}\n".format(get_name(location).replace(",", ":"), "Vivec", 4, cardinal_direction(get_coord(location), (33428, -89213))))
+
     closest_connections = connect_all_locations(locations)
     closest_connections = [(_, l1, l2) for (_, l1, l2) in closest_connections if get_name(l1) != get_name(l2)]
     with open("walking.csv", "w") as file:
+
+        for line in vivec_cantons:
+            file.write(line)
+
+        file.write("\n")
+
         for distance, l1, l2 in closest_connections:
             n1, n2 = get_name(l1).replace(",", ":"), get_name(l2).replace(",", ":")
             file.write("{}, {}, {}, {}\n".format(n1, n2, distance, cardinal_direction(get_coord(l1), get_coord(l2))))
