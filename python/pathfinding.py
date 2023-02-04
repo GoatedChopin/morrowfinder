@@ -115,6 +115,8 @@ def pretty_format_path(path):
 if __name__ == "__main__":
     data = load_data()
     origin_map = build_adjacency_map(data)
-    balmora_to_vos = bfs_path("Balmora", "Anudnabia (sealed)", origin_map)
-    print(pretty_format_path(balmora_to_vos))
+    # balmora_to_vos = bfs_path("Balmora", "Anudnabia (sealed)", origin_map)
+    # print(pretty_format_path(balmora_to_vos))
     # breakpoint()
+    print(all_reachable_locations("Balmora", origin_map))
+    print(all_reachable_locations("Anudnabia (sealed)", origin_map))

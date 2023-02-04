@@ -1,5 +1,6 @@
 from math import sqrt, atan2, pi
 from heapq import heappush, heappop
+from collections import deque
 
 
 def read_locations(path="../data/mwlocations.txt"):
@@ -37,6 +38,7 @@ def closest_location(location, locations):
 
 
 def connect_all_locations(locations):
+    raise Exception("This function does not return a fully-connected graph")
     location_pairs = set()
     location_set = set()
     distances = []
@@ -59,6 +61,22 @@ def connect_all_locations(locations):
             location_set.add(l1)
             location_set.add(l2)    
     return closest_connections
+
+
+def fully_connect_all_locations(locations):
+    """
+    1. Start with one parent location, Vivec is a good choice
+    2. Add the distance between the parent and all unvisited locations to the heap (distance, origin, destination)
+    3. Pop one connection (distance, origin, destination) off of the heap
+    4. Add the destination to the visited set, save the connection somewhere
+        Optional space complexity reduction: 
+            a. Delete all connections currently in the heap that include the newly-added node as a destination
+            b. re-Heapify the heap
+    5. Add the distance between the new location (destination) and all unvisited locations to the heap (distance, origin, destination)
+    6. Continue until all locations are visited
+    7. Store the graph
+    """
+    pass
 
     
 def cardinal_direction(origin, destination):
